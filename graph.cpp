@@ -64,9 +64,40 @@ void buildGraph_103022330008(graph &G) {
 
 void showVertex(graph G) {
     adrVertex v = firstVertex(G);
-
     while (v != NULL) {
         cout << idVertex(v) << " ";
         v = nextVertex(v);
+    }
+}
+
+adrVertex searchVertex(graph G, char vertexID){
+    adrVertex v = firstVertex(G);
+    while (v != NULL) {
+        if (vertexID == idVertex(v)) {
+            return v;
+        }
+        v = nextVertex(v);
+    }
+    return NULL;
+}
+
+void createEdge(graph &G,char vertexId,char destvertexid, int weight){
+    adrVertex v = searchVertex(G,vertexId);
+    if (v == NULL) {
+        cout << "ID Simpul tidak ditemukan"<<endl;
+    } else {
+        adrEdge newEdge = new edge;
+        destVertexID(newEdge) = destvertexid;
+        weight(newEdge) = weight;
+        nextEdge(newEdge) = NULL;
+        if (firstEdge(v) == NULL) {
+            firstEdge(v) = newEdge;
+        } else {
+            adrEdge e = firstEdge(v);
+            while (nextEdge(e) != NULL) {
+                e = nextEdge(e);
+            }
+            nextEdge(e) = newEdge;
+        }
     }
 }
