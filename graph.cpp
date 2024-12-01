@@ -3,11 +3,12 @@
 using namespace std;
 
 void createVertex_103022330008(char newVertexID, adrVertex &v) {
-    adrVertex newVertex = new vertex;
-    idVertex(newVertex) = newVertexID;
-    nextVertex(newVertex) = NULL;
-    firstEdge(newVertex) = NULL;
-    v = newVertex;
+    v = new vertex;
+    idVertex(v) = newVertexID;
+    posisi(v) = false;
+    jmlKunjungan(v) = 0;
+    nextVertex(v) = NULL;
+    firstEdge(v) = NULL;
 }
 
 void initGraph_103022330008(graph &G) {
@@ -15,17 +16,17 @@ void initGraph_103022330008(graph &G) {
 }
 
 void addVertex_103022330008(graph &G, char newVertexID) {
-    adrVertex newVertex;
-    createVertex_103022330008(newVertexID, newVertex);
+    adrVertex newV;
+    createVertex_103022330008(newVertexID, newV);
 
     if(firstVertex(G) == NULL) {
-        firstVertex(G) = newVertex;
+        firstVertex(G) = newV;
     } else {
-        adrVertex vertex = firstVertex(G);
-        while (nextVertex(vertex) != NULL) {
-            vertex = nextVertex(vertex);
+        adrVertex v = firstVertex(G);
+        while (nextVertex(v) != NULL) {
+            v = nextVertex(v);
         }
-        nextVertex(vertex) = newVertex;
+        nextVertex(v) = newV;
     }
 }
 
