@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1732420219 source:e:\telkom university\aset kuliah\semester 3\praktikum struktur data\tp_modul_11\main.cpp
+	<iostream>
+	"graph.h"
+
+1732420275 e:\telkom university\aset kuliah\semester 3\praktikum struktur data\tp_modul_11\graph.h
+	<iostream>
+
+1732420218 source:e:\telkom university\aset kuliah\semester 3\praktikum struktur data\tp_modul_11\graph.cpp
+	<iostream>
+	"graph.h"
+
