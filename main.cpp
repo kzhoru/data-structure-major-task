@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include "graph.h"
 using namespace std;
@@ -14,7 +15,7 @@ int selectMenu() {
     cout << "7. Urutan Kunjungan Tempat Wisata" << endl;
     cout << "0. Keluar" << endl;
     cout << "================================================" << endl;
-    cout << "Pilih Menu : ";
+    cout << "> Pilih Menu  : ";
     cin >> userInput;
     return userInput;
 }
@@ -59,6 +60,7 @@ int main()
                     cout << "Buat simpul tempat wisata terlebih dahulu." << endl;
                     break;
                 }
+                showLocation(G);
                 break;
 
             case 5:
@@ -66,6 +68,21 @@ int main()
                 if(!checkVertices(G)) {
                     cout << "Buat simpul tempat wisata terlebih dahulu." << endl;
                     break;
+                }
+                char startID, endID;
+                adrVertex startLocation, endLocation;
+
+                startLocation = findLocation(G);
+                startID = idVertex(startLocation);
+
+                cout << "Masukkan simpul yang ingin anda kunjungi: " ;
+                cin >> endID;
+                endLocation = searchVertex(G, endID);
+
+                if(endLocation == NULL) {
+                    cout << "Simpul tujuan tidak ditemukan." << endl;
+                } else {
+                    findShortestPath(G, startID, endID);
                 }
                 break;
 
@@ -97,6 +114,22 @@ int main()
                 } else {
                     //jika sudah ada tempat yang dikunjungi (ada 1 vertex yang position bernilai true)
                     // algoritma dijkstra...
+                    char startID, endID;
+                    adrVertex startLocation, endLocation;
+
+                    startLocation = findLocation(G);
+                    startID = idVertex(startLocation);
+
+                    cout << "Masukkan simpul yang ingin anda kunjungi: " ;
+                    cin >> endID;
+                    endLocation = searchVertex(G, endID);
+
+                    if(endLocation == NULL) {
+                        cout << "Simpul tujuan tidak ditemukan." << endl;
+                    } else {
+                        findShortestPath(G, startID, endID);
+                        visitVertex(G, endID);
+                    }
                 }
 
                 break;
@@ -107,6 +140,7 @@ int main()
                     cout << "Buat simpul tempat wisata terlebih dahulu." << endl;
                     break;
                 }
+                showMostVisitedPlaces(G);
                 break;
 
             default:

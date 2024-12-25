@@ -210,6 +210,22 @@ void connectVertex(graph G) {
     }
 }
 
+adrVertex findLocation(graph G) {
+    adrVertex v = firstVertex(G);
+    while(v != NULL) {
+        if(position(v) == true || position(v) == 1) {
+            return v;
+        }
+        v = nextVertex(v);
+    }
+    return NULL;
+}
+
+void showLocation(graph G) {
+    adrVertex v = findLocation(G);
+    cout << "Posisi anda saat ini berada di simpul : " << idVertex(v) << endl;
+}
+
 void findShortestPath(graph G, char startVertex, char targetVertex) {
     const int INF = INT_MAX;
     int vertexCount = 0;
@@ -318,3 +334,56 @@ void findShortestPath(graph G, char startVertex, char targetVertex) {
     }
 }
 
+void showMostVisitedPlaces(graph G) {
+    adrVertex v = firstVertex(G), mostVisitedPlace1 = NULL, mostVisitedPlace2 = NULL, mostVisitedPlace3 = NULL;
+    int mostVisitedCount1 = 0, mostVisitedCount2 = 0, mostVisitedCount3 = 0;
+
+    while (v != NULL) {
+        int currentVisitCount = visitCount(v);
+
+        if (currentVisitCount > mostVisitedCount1) {
+            mostVisitedPlace3 = mostVisitedPlace2;
+            mostVisitedCount3 = mostVisitedCount2;
+
+            mostVisitedPlace2 = mostVisitedPlace1;
+            mostVisitedCount2 = mostVisitedCount1;
+
+            mostVisitedPlace1 = v;
+            mostVisitedCount1 = currentVisitCount;
+        } else if (currentVisitCount > mostVisitedCount2) {
+            mostVisitedPlace3 = mostVisitedPlace2;
+            mostVisitedCount3 = mostVisitedCount2;
+
+            mostVisitedPlace2 = v;
+            mostVisitedCount2 = currentVisitCount;
+        } else if (currentVisitCount > mostVisitedCount3) {
+            mostVisitedPlace3 = v;
+            mostVisitedCount3 = currentVisitCount;
+        }
+
+        v = nextVertex(v);
+    }
+
+    cout << "Urutan tempat paling sering dikunjungi adalah : " << endl;
+    if(mostVisitedPlace1 != NULL) {
+        cout << "1. " << idVertex(mostVisitedPlace1) << " (sebanyak " << mostVisitedCount1 << " kali)" << endl;
+    }
+    if(mostVisitedPlace2 != NULL) {
+        cout << "2. " << idVertex(mostVisitedPlace2) << " (sebanyak " << mostVisitedCount2 << " kali)" << endl;
+    }
+    if(mostVisitedPlace3 != NULL) {
+        cout << "3. " << idVertex(mostVisitedPlace3) << " (sebanyak " << mostVisitedCount3 << " kali)" << endl;
+    }
+}
+
+void visitVertex(graph G, char targetVertex) {
+    adrVertex startVertex, endVertex;
+    startVertex = findLocation(G);
+    endVertex = searchVertex(G, targetVertex);
+
+    position(startVertex) = false;
+    position(endVertex) = true;
+    visitCount(endVertex)++;
+
+    cout << "Anda telah berpindah dari simpul " << idVertex(startVertex) << " ke simpul " << idVertex(endVertex) << endl;
+}

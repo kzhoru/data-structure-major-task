@@ -54,5 +54,13 @@ void createEdge(graph &G,char vertexId,char destVertexId, int weight);
 
 void connectVertex(graph G);
 
+adrVertex findLocation(graph G);
+
+void showLocation(graph G);
+
 void findShortestPath(graph G, char startVertex, char targetVertex);
+
+void showMostVisitedPlaces(graph G);
+
+void visitVertex(graph G, char targetVertex);
 #endif // GRAPH_H_INCLUDED
