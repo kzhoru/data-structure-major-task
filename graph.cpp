@@ -4,6 +4,8 @@
 using namespace std;
 
 void createVertex(char newVertexID, adrVertex &v) {
+    /*  I.S. Alamat vertex terdefinisi
+        F.S. Vertex baru terbuat */
     v = new vertex;
     idVertex(v) = newVertexID;
     position(v) = false;
@@ -24,10 +26,14 @@ bool checkVertices(graph G) {
 }
 
 void initGraph(graph &G) {
+    /* I.S. Graph G belum diinisialisasi
+       F.S. Graph G diinisialisasi dengan simpul awal NULL */
     firstVertex(G) = NULL;
 }
 
 void addVertex(graph &G, char newVertexID) {
+    /* I.S. Graph G terdefinisi, newVertexID adalah ID simpul yang akan ditambahkan
+       F.S. Simpul baru dengan ID newVertexID ditambahkan ke akhir daftar simpul */
     adrVertex newV;
     createVertex(newVertexID, newV);
 
@@ -43,6 +49,8 @@ void addVertex(graph &G, char newVertexID) {
 }
 
 void buildGraph(graph &G) {
+    /* I.S. Graph G terdefinisi
+       F.S. Graph G terisi dengan simpul-simpul berdasarkan input pengguna */
     char inputVertexID;
 
     while (true) {
@@ -75,6 +83,8 @@ void buildGraph(graph &G) {
 }
 
 void showVertex(graph G) {
+    /* I.S. Graph G terdefinisi
+       F.S. Semua simpul beserta informasi simpul dan tetangganya ditampilkan ke layar */
     adrVertex v = firstVertex(G);
     while (v != NULL) {
         adrEdge e = firstEdge(v);
@@ -91,6 +101,7 @@ void showVertex(graph G) {
 }
 
 bool haveVisited(graph G) {
+    // Mengecek apakah ada simpul yang sudah dikunjungi
     bool haveVisitedPlace = false;
     adrVertex v = firstVertex(G);
     while (v != NULL) {
@@ -104,6 +115,7 @@ bool haveVisited(graph G) {
 }
 
 adrVertex searchVertex(graph G, char vertexID){
+    // Mengembalikan alamat simpul dengan ID vertexID jika ditemukan, NULL jika tidak
     adrVertex v = firstVertex(G);
     while (v != NULL) {
         if (vertexID == idVertex(v)) {
@@ -115,6 +127,8 @@ adrVertex searchVertex(graph G, char vertexID){
 }
 
 void createEdge(graph &G, char vertexId, char destvertexid, int weight) {
+    /* I.S. Graph G terdefinisi, vertexId dan destvertexid adalah ID simpul yang valid
+       F.S. Membuat sisi (edge) antara vertexId dan destvertexid dengan bobot tertentu */
     adrVertex v = searchVertex(G,vertexId);
     adrVertex destV = searchVertex(G, destvertexid);
 
@@ -163,6 +177,8 @@ void createEdge(graph &G, char vertexId, char destvertexid, int weight) {
 }
 
 void connectVertex(graph G) {
+    /* I.S. Graph G terdefinisi
+       F.S. Simpul-simpul dalam graph G dapat saling terhubung sesuai input pengguna */
     while(true) {
         char v, vDestination, answer;
         int weight;
@@ -211,6 +227,7 @@ void connectVertex(graph G) {
 }
 
 adrVertex findLocation(graph G) {
+    // Mengembalikan alamat simpul yang menjadi lokasi saat ini, NULL jika tidak ada
     adrVertex v = firstVertex(G);
     while(v != NULL) {
         if(position(v) == true || position(v) == 1) {
@@ -222,11 +239,19 @@ adrVertex findLocation(graph G) {
 }
 
 void showLocation(graph G) {
+    /* I.S. Graph G terdefinisi
+       F.S. Lokasi saat ini (simpul aktif) ditampilkan ke layar */
     adrVertex v = findLocation(G);
-    cout << "Posisi anda saat ini berada di simpul : " << idVertex(v) << endl;
+    if (v != NULL) {
+        cout << "Posisi anda saat ini berada di simpul : " << idVertex(v) << endl;
+    } else {
+        cout << "Anda belum mengunjungi sebuah tempat." << endl;
+    }
+
 }
 
 void findShortestPath(graph G, char startVertex, char targetVertex) {
+    // Menampilkan jalur terpendek dari startVertex ke targetVertex, atau pesan jika tidak ada jalur
     const int INF = INT_MAX;
     int vertexCount = 0;
 
@@ -335,6 +360,8 @@ void findShortestPath(graph G, char startVertex, char targetVertex) {
 }
 
 void showMostVisitedPlaces(graph G) {
+    /* I.S. Graph G terdefinisi
+       F.S. Tiga tempat (simpul) yang paling sering dikunjungi ditampilkan ke layar */
     adrVertex v = firstVertex(G), mostVisitedPlace1 = NULL, mostVisitedPlace2 = NULL, mostVisitedPlace3 = NULL;
     int mostVisitedCount1 = 0, mostVisitedCount2 = 0, mostVisitedCount3 = 0;
 
@@ -377,6 +404,8 @@ void showMostVisitedPlaces(graph G) {
 }
 
 void visitVertex(graph G, char targetVertex) {
+    /* I.S. Graph G terdefinisi dan simpul targetVertex valid
+       F.S. Posisi berpindah dari simpul aktif saat ini ke targetVertex, dan jumlah kunjungan simpul targetVertex bertambah */
     adrVertex startVertex, endVertex;
     startVertex = findLocation(G);
     endVertex = searchVertex(G, targetVertex);
