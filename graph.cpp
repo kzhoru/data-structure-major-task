@@ -129,15 +129,15 @@ adrVertex searchVertex(graph G, char vertexID){
 void createEdge(graph &G, char vertexId, char destvertexid, int weight) {
     /* I.S. Graph G terdefinisi, vertexId dan destvertexid adalah ID simpul yang valid
        F.S. Membuat sisi (edge) antara vertexId dan destvertexid dengan bobot tertentu */
-    adrVertex v = searchVertex(G,vertexId);
+    adrVertex v = searchVertex(G, vertexId);
     adrVertex destV = searchVertex(G, destvertexid);
 
     if (v == NULL || destV == NULL) {
-        cout << "ID Simpul tidak ditemukan.\n"<<endl;
+        cout << "ID Simpul tidak ditemukan.\n" << endl;
     } else {
         adrEdge e = firstEdge(v);
-        while(e != NULL) {
-            if(destVertexID(e) == destvertexid) {
+        while (e != NULL) {
+            if (destVertexID(e) == destvertexid) {
                 cout << "Simpul " << vertexId << " sudah terhubung dengan " << destvertexid << ".\n" << endl;
                 return;
             }
@@ -163,11 +163,11 @@ void createEdge(graph &G, char vertexId, char destvertexid, int weight) {
         destVertexID(reverseEdge) = vertexId;
         weight(reverseEdge) = weight;
         nextEdge(reverseEdge) = NULL;
-        if(firstEdge(destV) == NULL) {
+        if (firstEdge(destV) == NULL) {
             firstEdge(destV) = reverseEdge;
         } else {
             adrEdge e = firstEdge(destV);
-            while(nextEdge(e) != NULL) {
+            while (nextEdge(e) != NULL) {
                 e = nextEdge(e);
             }
             nextEdge(e) = reverseEdge;
@@ -245,7 +245,7 @@ void showLocation(graph G) {
     if (v != NULL) {
         cout << "Posisi anda saat ini berada di simpul : " << idVertex(v) << endl;
     } else {
-        cout << "Anda belum mengunjungi sebuah tempat." << endl;
+        cout << "Anda belum mengunjungi sebuah tempat.";
     }
 
 }
@@ -254,6 +254,13 @@ void findShortestPath(graph G, char startVertex, char targetVertex) {
     // Menampilkan jalur terpendek dari startVertex ke targetVertex, atau pesan jika tidak ada jalur
     const int INF = INT_MAX;
     int vertexCount = 0;
+    adrVertex locationNow;
+
+    locationNow = findLocation(G);
+    if(locationNow == NULL) {
+        cout << "Anda belum mengujungi sebuah tempat." << endl;
+        return;
+    }
 
     // Hitung jumlah simpul
     adrVertex v = firstVertex(G);
